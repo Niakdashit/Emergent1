@@ -4,6 +4,7 @@ const path = require('path');
 // Environment variable overrides
 const config = {
   disableHotReload: process.env.DISABLE_HOT_RELOAD === 'true',
+  disableEslint: process.env.DISABLE_ESLINT === 'true',
 };
 
 module.exports = {
@@ -12,6 +13,13 @@ module.exports = {
       '@': path.resolve(__dirname, 'src'),
     },
     configure: (webpackConfig) => {
+      
+      // Disable ESLint if environment variable is set
+      if (config.disableEslint) {
+        webpackConfig.plugins = webpackConfig.plugins.filter(plugin => {
+          return plugin.constructor.name !== 'ESLintWebpackPlugin';
+        });
+      }
       
       // Disable hot reload completely if environment variable is set
       if (config.disableHotReload) {
