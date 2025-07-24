@@ -193,18 +193,97 @@ const ElementsPanel = () => {
   );
 };
 
-// Text Panel
-const TextPanel = () => {
+// Text Panel with Extensive Font Library
+const TextPanel = ({ setFontFamily, fontFamily }) => {
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [searchTerm, setSearchTerm] = useState('');
+
   const textStyles = [
     { name: 'Titre principal', preview: 'Titre Principal', style: 'text-4xl font-bold' },
     { name: 'Sous-titre', preview: 'Sous-titre élégant', style: 'text-2xl font-semibold' },
     { name: 'Corps de texte', preview: 'Texte de paragraphe', style: 'text-base' },
-    { name: 'Texte d\'accent', preview: 'Accent spécial', style: 'text-lg font-medium italic' }
+    { name: 'Citation', preview: '"Une belle citation"', style: 'text-lg italic' },
+    { name: 'Texte d\'accent', preview: 'Accent spécial', style: 'text-lg font-medium' }
   ];
 
   const fontCategories = [
-    'Serif', 'Sans Serif', 'Script', 'Display', 'Monospace'
+    { id: 'all', name: 'Toutes', count: '50+' },
+    { id: 'serif', name: 'Serif', count: '12' },
+    { id: 'sans-serif', name: 'Sans Serif', count: '15' },
+    { id: 'script', name: 'Script', count: '10' },
+    { id: 'display', name: 'Display', count: '8' },
+    { id: 'monospace', name: 'Monospace', count: '5' }
   ];
+
+  const fontLibrary = [
+    // Sans Serif
+    { name: 'Brick Sans', category: 'sans-serif', preview: 'Brick Sans', weight: 'font-bold', popular: true },
+    { name: 'Oswald', category: 'sans-serif', preview: 'Oswald', weight: 'font-bold', popular: true },
+    { name: 'Slopes', category: 'sans-serif', preview: 'Slopes', weight: 'font-medium', popular: false },
+    { name: 'Helvetica', category: 'sans-serif', preview: 'Helvetica', weight: 'font-normal', popular: true },
+    { name: 'Arial', category: 'sans-serif', preview: 'Arial', weight: 'font-normal', popular: true },
+    { name: 'Roboto', category: 'sans-serif', preview: 'Roboto', weight: 'font-normal', popular: true },
+    { name: 'Open Sans', category: 'sans-serif', preview: 'Open Sans', weight: 'font-normal', popular: true },
+    { name: 'Lato', category: 'sans-serif', preview: 'Lato', weight: 'font-normal', popular: true },
+    { name: 'Montserrat', category: 'sans-serif', preview: 'Montserrat', weight: 'font-semibold', popular: true },
+    { name: 'Source Sans Pro', category: 'sans-serif', preview: 'Source Sans Pro', weight: 'font-normal', popular: false },
+    { name: 'Nunito', category: 'sans-serif', preview: 'Nunito', weight: 'font-normal', popular: false },
+    { name: 'Poppins', category: 'sans-serif', preview: 'Poppins', weight: 'font-medium', popular: true },
+    { name: 'Inter', category: 'sans-serif', preview: 'Inter', weight: 'font-normal', popular: true },
+    { name: 'Work Sans', category: 'sans-serif', preview: 'Work Sans', weight: 'font-normal', popular: false },
+    { name: 'Fira Sans', category: 'sans-serif', preview: 'Fira Sans', weight: 'font-normal', popular: false },
+
+    // Serif
+    { name: 'Times New Roman', category: 'serif', preview: 'Times New Roman', weight: 'font-normal', popular: true },
+    { name: 'Georgia', category: 'serif', preview: 'Georgia', weight: 'font-normal', popular: true },
+    { name: 'Playfair Display', category: 'serif', preview: 'Playfair Display', weight: 'font-bold', popular: true },
+    { name: 'Merriweather', category: 'serif', preview: 'Merriweather', weight: 'font-normal', popular: true },
+    { name: 'Crimson Text', category: 'serif', preview: 'Crimson Text', weight: 'font-normal', popular: false },
+    { name: 'Lora', category: 'serif', preview: 'Lora', weight: 'font-normal', popular: true },
+    { name: 'PT Serif', category: 'serif', preview: 'PT Serif', weight: 'font-normal', popular: false },
+    { name: 'Libre Baskerville', category: 'serif', preview: 'Libre Baskerville', weight: 'font-normal', popular: false },
+    { name: 'EB Garamond', category: 'serif', preview: 'EB Garamond', weight: 'font-normal', popular: true },
+    { name: 'Cormorant Garamond', category: 'serif', preview: 'Cormorant Garamond', weight: 'font-light', popular: false },
+    { name: 'Vollkorn', category: 'serif', preview: 'Vollkorn', weight: 'font-normal', popular: false },
+    { name: 'Cardo', category: 'serif', preview: 'Cardo', weight: 'font-normal', popular: false },
+
+    // Script
+    { name: 'Magnolia Script', category: 'script', preview: 'Magnolia Script', weight: 'font-normal', popular: true },
+    { name: 'Adlery Pro', category: 'script', preview: 'Adlery Pro', weight: 'font-normal', popular: true },
+    { name: 'Grand Hotel', category: 'script', preview: 'Grand Hotel', weight: 'font-normal', popular: true },
+    { name: 'Dancing Script', category: 'script', preview: 'Dancing Script', weight: 'font-normal', popular: true },
+    { name: 'Pacifico', category: 'script', preview: 'Pacifico', weight: 'font-normal', popular: true },
+    { name: 'Great Vibes', category: 'script', preview: 'Great Vibes', weight: 'font-normal', popular: false },
+    { name: 'Kaushan Script', category: 'script', preview: 'Kaushan Script', weight: 'font-normal', popular: false },
+    { name: 'Satisfy', category: 'script', preview: 'Satisfy', weight: 'font-normal', popular: false },
+    { name: 'Allura', category: 'script', preview: 'Allura', weight: 'font-normal', popular: false },
+    { name: 'Sacramento', category: 'script', preview: 'Sacramento', weight: 'font-normal', popular: false },
+
+    // Display
+    { name: 'LAZYDOG', category: 'display', preview: 'LAZYDOG', weight: 'font-black', popular: true },
+    { name: 'Aprila', category: 'display', preview: 'Aprila', weight: 'font-bold', popular: true },
+    { name: 'Apricots', category: 'display', preview: 'Apricots', weight: 'font-normal', popular: false },
+    { name: 'Chewy', category: 'display', preview: 'Chewy', weight: 'font-normal', popular: true },
+    { name: 'TT Drugs', category: 'display', preview: 'TT Drugs', weight: 'font-bold', popular: false },
+    { name: 'Bebas Neue', category: 'display', preview: 'Bebas Neue', weight: 'font-bold', popular: true },
+    { name: 'Anton', category: 'display', preview: 'Anton', weight: 'font-bold', popular: true },
+    { name: 'Righteous', category: 'display', preview: 'Righteous', weight: 'font-bold', popular: false },
+
+    // Monospace
+    { name: 'Schoolbell', category: 'monospace', preview: 'Schoolbell', weight: 'font-normal', popular: false },
+    { name: 'Courier New', category: 'monospace', preview: 'Courier New', weight: 'font-normal', popular: true },
+    { name: 'Monaco', category: 'monospace', preview: 'Monaco', weight: 'font-normal', popular: true },
+    { name: 'Fira Code', category: 'monospace', preview: 'Fira Code', weight: 'font-normal', popular: true },
+    { name: 'JetBrains Mono', category: 'monospace', preview: 'JetBrains Mono', weight: 'font-normal', popular: false }
+  ];
+
+  const filteredFonts = fontLibrary.filter(font => {
+    const matchesCategory = selectedCategory === 'all' || font.category === selectedCategory;
+    const matchesSearch = font.name.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
+
+  const popularFonts = fontLibrary.filter(font => font.popular);
 
   return (
     <div className="p-4">
@@ -216,6 +295,97 @@ const TextPanel = () => {
         </button>
       </div>
 
+      {/* Search Bar */}
+      <div className="mb-4">
+        <input 
+          type="text" 
+          placeholder="Rechercher des polices..." 
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="w-full p-3 border border-gray-300 rounded-lg focus:border-purple-500 focus:outline-none"
+        />
+      </div>
+
+      {/* Font Categories */}
+      <div className="mb-6">
+        <h4 className="text-sm font-medium text-gray-600 mb-3">CATÉGORIES</h4>
+        <div className="grid grid-cols-2 gap-2">
+          {fontCategories.map((category) => (
+            <button 
+              key={category.id}
+              onClick={() => setSelectedCategory(category.id)}
+              className={`p-2 text-sm border rounded-lg transition-colors text-left ${
+                selectedCategory === category.id 
+                  ? 'border-purple-500 bg-purple-50 text-purple-700' 
+                  : 'border-gray-200 hover:border-purple-300 hover:bg-purple-50'
+              }`}
+            >
+              <div className="font-medium">{category.name}</div>
+              <div className="text-xs text-gray-500">{category.count} polices</div>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Popular Fonts (only show when 'all' is selected and no search) */}
+      {selectedCategory === 'all' && !searchTerm && (
+        <div className="mb-6">
+          <h4 className="text-sm font-medium text-gray-600 mb-3">POPULAIRES</h4>
+          <div className="space-y-2">
+            {popularFonts.slice(0, 6).map((font, index) => (
+              <button 
+                key={`popular-${index}`}
+                onClick={() => setFontFamily && setFontFamily(font.name)}
+                className={`w-full p-3 border rounded-lg hover:border-purple-300 hover:shadow-sm cursor-pointer transition-all text-left ${
+                  fontFamily === font.name ? 'border-purple-500 bg-purple-50' : 'border-gray-200'
+                }`}
+              >
+                <div className={`${font.weight} text-gray-800 mb-1`} style={{fontFamily: font.name}}>
+                  {font.preview}
+                </div>
+                <div className="text-xs text-gray-500 flex items-center justify-between">
+                  <span>{font.name}</span>
+                  <span className="text-orange-500">⭐</span>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* All Fonts */}
+      <div className="mb-6">
+        <h4 className="text-sm font-medium text-gray-600 mb-3">
+          {selectedCategory === 'all' ? 'TOUTES LES POLICES' : fontCategories.find(c => c.id === selectedCategory)?.name?.toUpperCase()}
+          <span className="ml-2 text-gray-400">({filteredFonts.length})</span>
+        </h4>
+        <div className="space-y-2 max-h-96 overflow-y-auto">
+          {filteredFonts.map((font, index) => (
+            <button 
+              key={index}
+              onClick={() => setFontFamily && setFontFamily(font.name)}
+              className={`w-full p-3 border rounded-lg hover:border-purple-300 hover:shadow-sm cursor-pointer transition-all text-left ${
+                fontFamily === font.name ? 'border-purple-500 bg-purple-50' : 'border-gray-200'
+              }`}
+            >
+              <div className={`${font.weight} text-gray-800 mb-1`} style={{fontFamily: font.name}}>
+                {font.preview}
+              </div>
+              <div className="text-xs text-gray-500 flex items-center justify-between">
+                <span>{font.name}</span>
+                <div className="flex items-center space-x-2">
+                  <span className="px-2 py-1 bg-gray-100 rounded text-xs">
+                    {fontCategories.find(c => c.id === font.category)?.name}
+                  </span>
+                  {font.popular && <span className="text-orange-500">⭐</span>}
+                </div>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Text Styles */}
       <div className="mb-6">
         <h4 className="text-sm font-medium text-gray-600 mb-3">STYLES DE TEXTE</h4>
         <div className="space-y-3">
@@ -224,35 +394,42 @@ const TextPanel = () => {
               key={index}
               className="w-full p-3 border border-gray-200 rounded-lg hover:border-purple-300 hover:shadow-sm cursor-pointer transition-all text-left"
             >
-              <div className={`${style.style} text-gray-800 mb-1`}>{style.preview}</div>
+              <div className={`${style.style} text-gray-800 mb-1`} style={{fontFamily: fontFamily || 'Inter'}}>
+                {style.preview}
+              </div>
               <div className="text-xs text-gray-500">{style.name}</div>
             </button>
           ))}
         </div>
       </div>
 
-      <div className="mb-6">
-        <h4 className="text-sm font-medium text-gray-600 mb-3">CATÉGORIES DE POLICES</h4>
-        <div className="grid grid-cols-2 gap-2">
-          {fontCategories.map((category, index) => (
-            <button 
-              key={index}
-              className="p-2 text-sm border border-gray-200 rounded-lg hover:border-purple-300 hover:bg-purple-50 transition-colors"
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-      </div>
-
+      {/* Text Effects */}
       <div>
         <h4 className="text-sm font-medium text-gray-600 mb-3">EFFETS DE TEXTE</h4>
         <div className="grid grid-cols-2 gap-2">
           <button className="p-3 border border-gray-200 rounded-lg hover:border-purple-300 hover:bg-purple-50 transition-colors">
-            <div className="text-sm font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">Gradient</div>
+            <div className="text-sm font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">
+              Gradient
+            </div>
+            <div className="text-xs text-gray-500 mt-1">Dégradé</div>
           </button>
           <button className="p-3 border border-gray-200 rounded-lg hover:border-purple-300 hover:bg-purple-50 transition-colors">
-            <div className="text-sm font-semibold text-gray-800" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.3)'}}>Ombre</div>
+            <div className="text-sm font-semibold text-gray-800" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.3)'}}>
+              Ombre
+            </div>
+            <div className="text-xs text-gray-500 mt-1">Drop shadow</div>
+          </button>
+          <button className="p-3 border border-gray-200 rounded-lg hover:border-purple-300 hover:bg-purple-50 transition-colors">
+            <div className="text-sm font-semibold text-gray-800 border-2 border-gray-800 inline-block px-2">
+              Contour
+            </div>
+            <div className="text-xs text-gray-500 mt-1">Outline</div>
+          </button>
+          <button className="p-3 border border-gray-200 rounded-lg hover:border-purple-300 hover:bg-purple-50 transition-colors">
+            <div className="text-sm font-semibold bg-yellow-300 text-gray-800 inline-block px-2">
+              Surligné
+            </div>
+            <div className="text-xs text-gray-500 mt-1">Highlight</div>
           </button>
         </div>
       </div>
