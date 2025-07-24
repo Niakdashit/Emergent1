@@ -378,6 +378,7 @@ const TextPanel = ({ setFontFamily, fontFamily }) => {
                     {fontCategories.find(c => c.id === font.category)?.name}
                   </span>
                   {font.popular && <span className="text-orange-500">⭐</span>}
+                  }
                 </div>
               </div>
             </button>
