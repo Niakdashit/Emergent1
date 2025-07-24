@@ -34,7 +34,7 @@ export const Sidebar = ({ selectedTool, setSelectedTool }) => {
       {/* Expanded Panel */}
       {selectedTool && (
         <div className="w-80 bg-white border-r border-gray-200 overflow-y-auto">
-          <SidebarPanel selectedTool={selectedTool} />
+          <SidebarPanel selectedTool={selectedTool} fontFamily={fontFamily} setFontFamily={setFontFamily} />
         </div>
       )}
     </div>
