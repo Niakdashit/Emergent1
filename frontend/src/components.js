@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 // Sidebar Component with Expanded Panels
-export const Sidebar = ({ selectedTool, setSelectedTool }) => {
+export const Sidebar = ({ selectedTool, setSelectedTool, fontFamily, setFontFamily }) => {
   const tools = [
     { id: 'Design', icon: '📐', label: 'Design' },
     { id: 'Elements', icon: '🔸', label: 'Elements' },
