@@ -44,6 +44,8 @@ function App() {
         <Sidebar 
           selectedTool={selectedTool}
           setSelectedTool={setSelectedTool}
+          fontFamily={fontFamily}
+          setFontFamily={setFontFamily}
         />
 
         {/* Main Canvas Area */}
