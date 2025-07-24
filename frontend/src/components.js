@@ -50,7 +50,7 @@ const SidebarPanel = ({ selectedTool, fontFamily, setFontFamily }) => {
       case 'Elements':
         return <ElementsPanel />;
       case 'Text':
-        return <TextPanel />;
+        return <TextPanel setFontFamily={setFontFamily} fontFamily={fontFamily} />;
       case 'Brand':
         return <BrandPanel />;
       case 'Uploads':
