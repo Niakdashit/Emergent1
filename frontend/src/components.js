@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-// Sidebar Component
+// Sidebar Component with Expanded Panels
 export const Sidebar = ({ selectedTool, setSelectedTool }) => {
   const tools = [
     { id: 'Design', icon: '📐', label: 'Design' },
@@ -14,19 +14,536 @@ export const Sidebar = ({ selectedTool, setSelectedTool }) => {
   ];
 
   return (
-    <div className="w-20 bg-gray-800 text-white flex flex-col py-4">
-      {tools.map((tool) => (
-        <button
-          key={tool.id}
-          onClick={() => setSelectedTool(tool.id)}
-          className={`flex flex-col items-center py-4 px-2 hover:bg-gray-700 transition-colors ${
-            selectedTool === tool.id ? 'bg-gray-700 border-r-2 border-blue-500' : ''
-          }`}
-        >
-          <div className="text-xl mb-1">{tool.icon}</div>
-          <span className="text-xs text-gray-300">{tool.label}</span>
+    <div className="flex">
+      {/* Main Sidebar */}
+      <div className="w-20 bg-gray-800 text-white flex flex-col py-4">
+        {tools.map((tool) => (
+          <button
+            key={tool.id}
+            onClick={() => setSelectedTool(tool.id)}
+            className={`flex flex-col items-center py-4 px-2 hover:bg-gray-700 transition-colors ${
+              selectedTool === tool.id ? 'bg-gray-700 border-r-2 border-blue-500' : ''
+            }`}
+          >
+            <div className="text-xl mb-1">{tool.icon}</div>
+            <span className="text-xs text-gray-300">{tool.label}</span>
+          </button>
+        ))}
+      </div>
+
+      {/* Expanded Panel */}
+      {selectedTool && (
+        <div className="w-80 bg-white border-r border-gray-200 overflow-y-auto">
+          <SidebarPanel selectedTool={selectedTool} />
+        </div>
+      )}
+    </div>
+  );
+};
+
+// Sidebar Panel Content Component
+const SidebarPanel = ({ selectedTool }) => {
+  const renderPanelContent = () => {
+    switch (selectedTool) {
+      case 'Design':
+        return <DesignPanel />;
+      case 'Elements':
+        return <ElementsPanel />;
+      case 'Text':
+        return <TextPanel />;
+      case 'Brand':
+        return <BrandPanel />;
+      case 'Uploads':
+        return <UploadsPanel />;
+      case 'Tools':
+        return <ToolsPanel />;
+      case 'Projects':
+        return <ProjectsPanel />;
+      case 'Apps':
+        return <AppsPanel />;
+      default:
+        return <div className="p-4">Select a tool</div>;
+    }
+  };
+
+  return (
+    <div className="h-full">
+      {renderPanelContent()}
+    </div>
+  );
+};
+
+// Design Panel
+const DesignPanel = () => {
+  const templates = [
+    { name: 'Post Instagram', size: '1080 × 1080 px', color: 'bg-pink-100' },
+    { name: 'Story Instagram', size: '1080 × 1920 px', color: 'bg-purple-100' },
+    { name: 'Publication Facebook', size: '1200 × 630 px', color: 'bg-blue-100' },
+    { name: 'Bannière LinkedIn', size: '1584 × 396 px', color: 'bg-indigo-100' },
+    { name: 'Logo', size: '500 × 500 px', color: 'bg-green-100' },
+    { name: 'Flyer', size: '2480 × 3508 px', color: 'bg-orange-100' }
+  ];
+
+  return (
+    <div className="p-4">
+      <h3 className="text-lg font-semibold mb-4 text-gray-800">Design</h3>
+      
+      <div className="mb-6">
+        <input 
+          type="text" 
+          placeholder="Rechercher des designs..." 
+          className="w-full p-3 border border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
+        />
+      </div>
+
+      <div className="mb-6">
+        <h4 className="text-sm font-medium text-gray-600 mb-3">FORMATS POPULAIRES</h4>
+        <div className="grid grid-cols-1 gap-3">
+          {templates.map((template, index) => (
+            <div 
+              key={index}
+              className="flex items-center p-3 border border-gray-200 rounded-lg hover:border-blue-300 hover:shadow-sm cursor-pointer transition-all"
+            >
+              <div className={`w-12 h-12 ${template.color} rounded-lg mr-3 flex items-center justify-center`}>
+                <div className="w-6 h-6 bg-white rounded opacity-60"></div>
+              </div>
+              <div>
+                <div className="font-medium text-gray-800">{template.name}</div>
+                <div className="text-xs text-gray-500">{template.size}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="mb-4">
+        <h4 className="text-sm font-medium text-gray-600 mb-3">DIMENSIONS PERSONNALISÉES</h4>
+        <button className="w-full p-3 border-2 border-dashed border-gray-300 rounded-lg text-gray-600 hover:border-blue-400 hover:text-blue-600 transition-colors">
+          + Créer un design personnalisé
         </button>
-      ))}
+      </div>
+    </div>
+  );
+};
+
+// Elements Panel
+const ElementsPanel = () => {
+  const elementCategories = [
+    { name: 'Lignes et formes', icon: '▭', count: '2M+' },
+    { name: 'Autocollants', icon: '🌟', count: '500K+' },
+    { name: 'Illustrations', icon: '🎨', count: '1M+' },
+    { name: 'Icônes', icon: '🔷', count: '3M+' },
+    { name: 'Photos', icon: '📷', count: '100M+' },
+    { name: 'Vidéos', icon: '🎬', count: '50K+' },
+    { name: 'Audio', icon: '🎵', count: '25K+' },
+    { name: 'Graphiques', icon: '📊', count: '100K+' }
+  ];
+
+  const quickShapes = [
+    { shape: '⭕', name: 'Circle' },
+    { shape: '⬜', name: 'Square' },
+    { shape: '🔺', name: 'Triangle' },
+    { shape: '⭐', name: 'Star' },
+    { shape: '💖', name: 'Heart' },
+    { shape: '💬', name: 'Speech' }
+  ];
+
+  return (
+    <div className="p-4">
+      <h3 className="text-lg font-semibold mb-4 text-gray-800">Éléments</h3>
+      
+      <div className="mb-6">
+        <input 
+          type="text" 
+          placeholder="Rechercher des éléments..." 
+          className="w-full p-3 border border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
+        />
+      </div>
+
+      <div className="mb-6">
+        <h4 className="text-sm font-medium text-gray-600 mb-3">FORMES RAPIDES</h4>
+        <div className="grid grid-cols-3 gap-2">
+          {quickShapes.map((item, index) => (
+            <button 
+              key={index}
+              className="aspect-square bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-lg flex items-center justify-center text-2xl transition-colors"
+              title={item.name}
+            >
+              {item.shape}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        {elementCategories.map((category, index) => (
+          <button 
+            key={index}
+            className="w-full flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg transition-colors text-left"
+          >
+            <div className="flex items-center">
+              <span className="text-xl mr-3">{category.icon}</span>
+              <span className="font-medium text-gray-800">{category.name}</span>
+            </div>
+            <span className="text-xs text-gray-500">{category.count}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+// Text Panel
+const TextPanel = () => {
+  const textStyles = [
+    { name: 'Titre principal', preview: 'Titre Principal', style: 'text-4xl font-bold' },
+    { name: 'Sous-titre', preview: 'Sous-titre élégant', style: 'text-2xl font-semibold' },
+    { name: 'Corps de texte', preview: 'Texte de paragraphe', style: 'text-base' },
+    { name: 'Texte d\'accent', preview: 'Accent spécial', style: 'text-lg font-medium italic' }
+  ];
+
+  const fontCategories = [
+    'Serif', 'Sans Serif', 'Script', 'Display', 'Monospace'
+  ];
+
+  return (
+    <div className="p-4">
+      <h3 className="text-lg font-semibold mb-4 text-gray-800">Texte</h3>
+      
+      <div className="mb-6">
+        <button className="w-full p-4 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors font-semibold">
+          + Ajouter une zone de texte
+        </button>
+      </div>
+
+      <div className="mb-6">
+        <h4 className="text-sm font-medium text-gray-600 mb-3">STYLES DE TEXTE</h4>
+        <div className="space-y-3">
+          {textStyles.map((style, index) => (
+            <button 
+              key={index}
+              className="w-full p-3 border border-gray-200 rounded-lg hover:border-purple-300 hover:shadow-sm cursor-pointer transition-all text-left"
+            >
+              <div className={`${style.style} text-gray-800 mb-1`}>{style.preview}</div>
+              <div className="text-xs text-gray-500">{style.name}</div>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="mb-6">
+        <h4 className="text-sm font-medium text-gray-600 mb-3">CATÉGORIES DE POLICES</h4>
+        <div className="grid grid-cols-2 gap-2">
+          {fontCategories.map((category, index) => (
+            <button 
+              key={index}
+              className="p-2 text-sm border border-gray-200 rounded-lg hover:border-purple-300 hover:bg-purple-50 transition-colors"
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <h4 className="text-sm font-medium text-gray-600 mb-3">EFFETS DE TEXTE</h4>
+        <div className="grid grid-cols-2 gap-2">
+          <button className="p-3 border border-gray-200 rounded-lg hover:border-purple-300 hover:bg-purple-50 transition-colors">
+            <div className="text-sm font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600">Gradient</div>
+          </button>
+          <button className="p-3 border border-gray-200 rounded-lg hover:border-purple-300 hover:bg-purple-50 transition-colors">
+            <div className="text-sm font-semibold text-gray-800" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.3)'}}>Ombre</div>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Brand Panel
+const BrandPanel = () => {
+  const brandColors = [
+    '#6366f1', '#8b5cf6', '#ec4899', '#ef4444', '#f97316', 
+    '#eab308', '#22c55e', '#06b6d4', '#3b82f6', '#6b7280'
+  ];
+
+  return (
+    <div className="p-4">
+      <h3 className="text-lg font-semibold mb-4 text-gray-800">Marque</h3>
+      
+      <div className="mb-6">
+        <button className="w-full p-4 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors font-semibold">
+          + Créer un kit de marque
+        </button>
+      </div>
+
+      <div className="mb-6">
+        <h4 className="text-sm font-medium text-gray-600 mb-3">COULEURS DE MARQUE</h4>
+        <div className="grid grid-cols-5 gap-2 mb-3">
+          {brandColors.map((color, index) => (
+            <button 
+              key={index}
+              className="aspect-square rounded-lg border-2 border-gray-200 hover:scale-110 transition-transform"
+              style={{ backgroundColor: color }}
+              title={color}
+            />
+          ))}
+        </div>
+        <button className="w-full p-2 text-sm text-indigo-600 hover:text-indigo-700 font-medium">
+          + Ajouter une couleur
+        </button>
+      </div>
+
+      <div className="mb-6">
+        <h4 className="text-sm font-medium text-gray-600 mb-3">POLICES DE MARQUE</h4>
+        <div className="space-y-2">
+          <div className="p-3 border border-gray-200 rounded-lg">
+            <div className="font-bold text-lg">Montserrat</div>
+            <div className="text-sm text-gray-500">Titre principal</div>
+          </div>
+          <div className="p-3 border border-gray-200 rounded-lg">
+            <div className="text-base">Open Sans</div>
+            <div className="text-sm text-gray-500">Corps de texte</div>
+          </div>
+        </div>
+        <button className="w-full p-2 text-sm text-indigo-600 hover:text-indigo-700 font-medium mt-2">
+          + Ajouter une police
+        </button>
+      </div>
+
+      <div>
+        <h4 className="text-sm font-medium text-gray-600 mb-3">LOGOS</h4>
+        <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+          <div className="text-gray-400 mb-2">📷</div>
+          <div className="text-sm text-gray-500">Télécharger votre logo</div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Uploads Panel
+const UploadsPanel = () => {
+  const recentUploads = [
+    { name: 'background.jpg', type: 'image', size: '2.4 MB' },
+    { name: 'logo.png', type: 'image', size: '186 KB' },
+    { name: 'video-intro.mp4', type: 'video', size: '15.2 MB' },
+    { name: 'texture.jpg', type: 'image', size: '1.8 MB' }
+  ];
+
+  return (
+    <div className="p-4">
+      <h3 className="text-lg font-semibold mb-4 text-gray-800">Téléchargements</h3>
+      
+      <div className="mb-6">
+        <button className="w-full p-4 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-semibold">
+          📁 Télécharger des médias
+        </button>
+      </div>
+
+      <div className="mb-6">
+        <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-green-400 transition-colors">
+          <div className="text-4xl text-gray-400 mb-3">📤</div>
+          <div className="text-lg font-medium text-gray-700 mb-2">Glisser-déposer vos fichiers ici</div>
+          <div className="text-sm text-gray-500">PNG, JPG, GIF, MP4 jusqu'à 100MB</div>
+        </div>
+      </div>
+
+      <div className="mb-6">
+        <h4 className="text-sm font-medium text-gray-600 mb-3">RÉCENTS</h4>
+        <div className="space-y-2">
+          {recentUploads.map((file, index) => (
+            <div key={index} className="flex items-center p-3 hover:bg-gray-50 rounded-lg cursor-pointer">
+              <div className="w-12 h-12 bg-gray-200 rounded-lg mr-3 flex items-center justify-center">
+                {file.type === 'image' ? '🖼️' : '🎬'}
+              </div>
+              <div className="flex-1">
+                <div className="font-medium text-gray-800 text-sm">{file.name}</div>
+                <div className="text-xs text-gray-500">{file.size}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <h4 className="text-sm font-medium text-gray-600 mb-3">DOSSIERS</h4>
+        <button className="w-full p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors text-left">
+          <div className="flex items-center">
+            <span className="text-xl mr-3">📁</span>
+            <span className="font-medium text-gray-800">Créer un dossier</span>
+          </div>
+        </button>
+      </div>
+    </div>
+  );
+};
+
+// Tools Panel
+const ToolsPanel = () => {
+  const tools = [
+    { name: 'Suppression d\'arrière-plan', icon: '✂️', description: 'Supprimer automatiquement l\'arrière-plan' },
+    { name: 'Redimensionner', icon: '📏', description: 'Ajuster les dimensions de votre design' },
+    { name: 'Recadrer', icon: '✂️', description: 'Recadrer vos images et éléments' },
+    { name: 'Amélioration d\'image', icon: '✨', description: 'Améliorer la qualité automatiquement' },
+    { name: 'Générateur QR Code', icon: '⬛', description: 'Créer des codes QR personnalisés' },
+    { name: 'Convertisseur de couleur', icon: '🎨', description: 'Convertir entre formats de couleur' }
+  ];
+
+  return (
+    <div className="p-4">
+      <h3 className="text-lg font-semibold mb-4 text-gray-800">Outils</h3>
+      
+      <div className="space-y-3">
+        {tools.map((tool, index) => (
+          <button 
+            key={index}
+            className="w-full p-4 border border-gray-200 rounded-lg hover:border-blue-300 hover:shadow-sm cursor-pointer transition-all text-left"
+          >
+            <div className="flex items-start">
+              <span className="text-2xl mr-3">{tool.icon}</span>
+              <div>
+                <div className="font-medium text-gray-800 mb-1">{tool.name}</div>
+                <div className="text-sm text-gray-500">{tool.description}</div>
+              </div>
+            </div>
+          </button>
+        ))}
+      </div>
+
+      <div className="mt-8 p-4 bg-blue-50 rounded-lg">
+        <h4 className="font-semibold text-blue-800 mb-2">💡 Astuce</h4>
+        <p className="text-sm text-blue-700">
+          La plupart de ces outils sont alimentés par l'IA pour vous faire gagner du temps !
+        </p>
+      </div>
+    </div>
+  );
+};
+
+// Projects Panel
+const ProjectsPanel = () => {
+  const recentProjects = [
+    { name: 'Post Instagram - Promotion', type: 'Instagram Post', modified: '2 heures', thumbnail: 'bg-pink-200' },
+    { name: 'Logo Entreprise', type: 'Logo', modified: '1 jour', thumbnail: 'bg-blue-200' },
+    { name: 'Flyer Événement', type: 'Flyer', modified: '3 jours', thumbnail: 'bg-green-200' },
+    { name: 'Présentation Client', type: 'Présentation', modified: '1 semaine', thumbnail: 'bg-purple-200' }
+  ];
+
+  return (
+    <div className="p-4">
+      <h3 className="text-lg font-semibold mb-4 text-gray-800">Projets</h3>
+      
+      <div className="mb-6">
+        <button className="w-full p-4 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors font-semibold">
+          + Nouveau projet
+        </button>
+      </div>
+
+      <div className="mb-6">
+        <div className="flex space-x-2">
+          <input 
+            type="text" 
+            placeholder="Rechercher des projets..." 
+            className="flex-1 p-3 border border-gray-300 rounded-lg focus:border-purple-500 focus:outline-none"
+          />
+          <button className="px-4 py-3 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
+            🔍
+          </button>
+        </div>
+      </div>
+
+      <div className="mb-6">
+        <h4 className="text-sm font-medium text-gray-600 mb-3">RÉCENTS</h4>
+        <div className="space-y-3">
+          {recentProjects.map((project, index) => (
+            <div 
+              key={index}
+              className="flex items-center p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition-colors"
+            >
+              <div className={`w-12 h-12 ${project.thumbnail} rounded-lg mr-3 flex items-center justify-center`}>
+                <div className="w-6 h-6 bg-white rounded opacity-60"></div>
+              </div>
+              <div className="flex-1">
+                <div className="font-medium text-gray-800 text-sm">{project.name}</div>
+                <div className="text-xs text-gray-500">{project.type} • Modifié il y a {project.modified}</div>
+              </div>
+              <button className="text-gray-400 hover:text-gray-600">⋮</button>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <h4 className="text-sm font-medium text-gray-600 mb-3">DOSSIERS</h4>
+        <button className="w-full p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors text-left">
+          <div className="flex items-center">
+            <span className="text-xl mr-3">📁</span>
+            <span className="font-medium text-gray-800">Créer un dossier</span>
+          </div>
+        </button>
+      </div>
+    </div>
+  );
+};
+
+// Apps Panel
+const AppsPanel = () => {
+  const apps = [
+    { name: 'Google Drive', icon: '💾', description: 'Importer depuis Google Drive', connected: true },
+    { name: 'Dropbox', icon: '📦', description: 'Synchroniser avec Dropbox', connected: false },
+    { name: 'Unsplash', icon: '📸', description: 'Photos gratuites haute qualité', connected: true },
+    { name: 'Giphy', icon: '🎭', description: 'GIFs animés et autocollants', connected: true },
+    { name: 'YouTube', icon: '🎬', description: 'Intégrer des vidéos YouTube', connected: false },
+    { name: 'Spotify', icon: '🎵', description: 'Musique pour vos vidéos', connected: false }
+  ];
+
+  return (
+    <div className="p-4">
+      <h3 className="text-lg font-semibold mb-4 text-gray-800">Applications</h3>
+      
+      <div className="mb-6">
+        <input 
+          type="text" 
+          placeholder="Rechercher des applications..." 
+          className="w-full p-3 border border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
+        />
+      </div>
+
+      <div className="space-y-3">
+        {apps.map((app, index) => (
+          <div 
+            key={index}
+            className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:border-blue-300 hover:shadow-sm cursor-pointer transition-all"
+          >
+            <div className="flex items-center">
+              <span className="text-2xl mr-3">{app.icon}</span>
+              <div>
+                <div className="font-medium text-gray-800">{app.name}</div>
+                <div className="text-sm text-gray-500">{app.description}</div>
+              </div>
+            </div>
+            <div>
+              {app.connected ? (
+                <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-medium rounded-full">
+                  Connecté
+                </span>
+              ) : (
+                <button className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors">
+                  Connecter
+                </button>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-8 p-4 bg-yellow-50 rounded-lg">
+        <h4 className="font-semibold text-yellow-800 mb-2">⭐ Suggestion</h4>
+        <p className="text-sm text-yellow-700">
+          Connectez vos applications favorites pour accéder rapidement à vos contenus !
+        </p>
+      </div>
     </div>
   );
 };
