@@ -42,7 +42,7 @@ export const Sidebar = ({ selectedTool, setSelectedTool, fontFamily, setFontFami
 };
 
 // Sidebar Panel Content Component
-const SidebarPanel = ({ selectedTool }) => {
+const SidebarPanel = ({ selectedTool, fontFamily, setFontFamily }) => {
   const renderPanelContent = () => {
     switch (selectedTool) {
       case 'Design':
