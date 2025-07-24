@@ -40,7 +40,7 @@ function App() {
       />
 
       <div className="flex flex-1 overflow-hidden">
-        {/* Left Sidebar */}
+        {/* Left Sidebar with Panels */}
         <Sidebar 
           selectedTool={selectedTool}
           setSelectedTool={setSelectedTool}
