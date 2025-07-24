@@ -46,18 +46,18 @@ body {
 }
 
 .sidebar-item:hover {
-  background-color: rgba(55, 65, 81, 0.8);
+  background-color: rgba(55, 65, 81, 0.9);
   transform: translateX(2px);
 }
 
 /* Toolbar button animations */
 .toolbar-button {
-  transition: all 0.15s ease-in-out;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .toolbar-button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 .toolbar-button:active {
@@ -70,8 +70,8 @@ body {
 }
 
 .device-container:hover {
-  transform: scale(1.02);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  transform: scale(1.01);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
 
 /* Color picker custom styling */
@@ -79,15 +79,18 @@ input[type="color"] {
   -webkit-appearance: none;
   border: none;
   cursor: pointer;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 input[type="color"]::-webkit-color-swatch-wrapper {
   padding: 0;
+  border-radius: 8px;
 }
 
 input[type="color"]::-webkit-color-swatch {
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
 }
 
 /* Select dropdown styling */
@@ -98,40 +101,74 @@ select {
   background-position: right 8px center;
   background-size: 16px;
   padding-right: 32px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+select:focus {
+  box-shadow: 0 0 0 3px rgba(147, 51, 234, 0.1);
 }
 
 /* Bottom controls animations */
 .bottom-control-btn {
-  transition: all 0.2s ease-in-out;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .bottom-control-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 /* LED lights animation for the wheel */
 @keyframes ledPulse {
   0%, 100% {
-    opacity: 0.4;
-    transform: scale(0.8);
+    opacity: 0.6;
+    transform: scale(0.9);
   }
   50% {
     opacity: 1;
-    transform: scale(1.2);
+    transform: scale(1.1);
   }
 }
 
 .led-light {
-  animation: ledPulse 2s infinite;
+  animation: ledPulse 1.5s infinite ease-in-out;
 }
 
 .led-light:nth-child(2n) {
-  animation-delay: 0.2s;
+  animation-delay: 0.15s;
 }
 
 .led-light:nth-child(3n) {
-  animation-delay: 0.4s;
+  animation-delay: 0.3s;
+}
+
+/* Gradient animations */
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.gradient-animate {
+  background-size: 200% 200%;
+  animation: gradientShift 3s ease infinite;
+}
+
+/* Professional shadows */
+.shadow-professional {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 
+              0 4px 6px -2px rgba(0, 0, 0, 0.05),
+              0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+.shadow-professional-hover:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 
+              0 10px 10px -5px rgba(0, 0, 0, 0.04),
+              0 0 0 1px rgba(0, 0, 0, 0.05);
 }
 
 /* Responsive adjustments */

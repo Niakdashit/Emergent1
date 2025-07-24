@@ -3,37 +3,37 @@ import React, { useState } from 'react';
 // Sidebar Component with Expanded Panels
 export const Sidebar = ({ selectedTool, setSelectedTool, fontFamily, setFontFamily }) => {
   const tools = [
-    { id: 'Design', icon: '📐', label: 'Design' },
-    { id: 'Elements', icon: '🔸', label: 'Elements' },
-    { id: 'Text', icon: 'T', label: 'Text' },
-    { id: 'Brand', icon: '🎨', label: 'Brand' },
-    { id: 'Uploads', icon: '📁', label: 'Uploads' },
-    { id: 'Tools', icon: '🔧', label: 'Tools' },
-    { id: 'Projects', icon: '📋', label: 'Projects' },
+    { id: 'Design', icon: '⚡', label: 'Design' },
+    { id: 'Elements', icon: '◆', label: 'Éléments' },
+    { id: 'Text', icon: 'Aa', label: 'Texte' },
+    { id: 'Brand', icon: '★', label: 'Marque' },
+    { id: 'Uploads', icon: '⬆', label: 'Importer' },
+    { id: 'Tools', icon: '⚙', label: 'Outils' },
+    { id: 'Projects', icon: '◉', label: 'Projets' },
     { id: 'Apps', icon: '⊞', label: 'Apps' }
   ];
 
   return (
     <div className="flex">
       {/* Main Sidebar */}
-      <div className="w-20 bg-gray-800 text-white flex flex-col py-4">
+      <div className="w-20 bg-gray-900 text-white flex flex-col py-4 shadow-lg">
         {tools.map((tool) => (
           <button
             key={tool.id}
             onClick={() => setSelectedTool(tool.id)}
-            className={`flex flex-col items-center py-4 px-2 hover:bg-gray-700 transition-colors ${
-              selectedTool === tool.id ? 'bg-gray-700 border-r-2 border-blue-500' : ''
+            className={`flex flex-col items-center py-4 px-2 hover:bg-gray-800 transition-all duration-200 ${
+              selectedTool === tool.id ? 'bg-gray-800 border-r-3 border-purple-500 shadow-inner' : ''
             }`}
           >
-            <div className="text-xl mb-1">{tool.icon}</div>
-            <span className="text-xs text-gray-300">{tool.label}</span>
+            <div className="text-lg mb-1 font-medium">{tool.icon}</div>
+            <span className="text-xs text-gray-400 font-medium">{tool.label}</span>
           </button>
         ))}
       </div>
 
       {/* Expanded Panel */}
       {selectedTool && (
-        <div className="w-80 bg-white border-r border-gray-200 overflow-y-auto">
+        <div className="w-80 bg-white border-r border-gray-300 overflow-y-auto shadow-lg">
           <SidebarPanel selectedTool={selectedTool} fontFamily={fontFamily} setFontFamily={setFontFamily} />
         </div>
       )}
@@ -76,40 +76,40 @@ const SidebarPanel = ({ selectedTool, fontFamily, setFontFamily }) => {
 // Design Panel
 const DesignPanel = () => {
   const templates = [
-    { name: 'Post Instagram', size: '1080 × 1080 px', color: 'bg-pink-100' },
-    { name: 'Story Instagram', size: '1080 × 1920 px', color: 'bg-purple-100' },
-    { name: 'Publication Facebook', size: '1200 × 630 px', color: 'bg-blue-100' },
-    { name: 'Bannière LinkedIn', size: '1584 × 396 px', color: 'bg-indigo-100' },
-    { name: 'Logo', size: '500 × 500 px', color: 'bg-green-100' },
-    { name: 'Flyer', size: '2480 × 3508 px', color: 'bg-orange-100' }
+    { name: 'Post Instagram', size: '1080 × 1080 px', color: 'bg-gradient-to-br from-pink-400 to-pink-600', icon: '📱' },
+    { name: 'Story Instagram', size: '1080 × 1920 px', color: 'bg-gradient-to-br from-purple-400 to-purple-600', icon: '📲' },
+    { name: 'Publication Facebook', size: '1200 × 630 px', color: 'bg-gradient-to-br from-blue-400 to-blue-600', icon: '👥' },
+    { name: 'Bannière LinkedIn', size: '1584 × 396 px', color: 'bg-gradient-to-br from-indigo-400 to-indigo-600', icon: '💼' },
+    { name: 'Logo', size: '500 × 500 px', color: 'bg-gradient-to-br from-green-400 to-green-600', icon: '⭐' },
+    { name: 'Flyer', size: '2480 × 3508 px', color: 'bg-gradient-to-br from-orange-400 to-orange-600', icon: '📄' }
   ];
 
   return (
-    <div className="p-4">
-      <h3 className="text-lg font-semibold mb-4 text-gray-800">Design</h3>
+    <div className="p-6">
+      <h3 className="text-xl font-bold mb-6 text-gray-900">Créer un design</h3>
       
       <div className="mb-6">
         <input 
           type="text" 
-          placeholder="Rechercher des designs..." 
-          className="w-full p-3 border border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
+          placeholder="Que souhaitez-vous créer ?" 
+          className="w-full p-4 border border-gray-300 rounded-xl focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 transition-all"
         />
       </div>
 
       <div className="mb-6">
-        <h4 className="text-sm font-medium text-gray-600 mb-3">FORMATS POPULAIRES</h4>
+        <h4 className="text-sm font-semibold text-gray-700 mb-4 uppercase tracking-wide">Formats recommandés</h4>
         <div className="grid grid-cols-1 gap-3">
           {templates.map((template, index) => (
             <div 
               key={index}
-              className="flex items-center p-3 border border-gray-200 rounded-lg hover:border-blue-300 hover:shadow-sm cursor-pointer transition-all"
+              className="flex items-center p-4 border border-gray-200 rounded-xl hover:border-purple-300 hover:shadow-md cursor-pointer transition-all duration-200 group"
             >
-              <div className={`w-12 h-12 ${template.color} rounded-lg mr-3 flex items-center justify-center`}>
-                <div className="w-6 h-6 bg-white rounded opacity-60"></div>
+              <div className={`w-14 h-14 ${template.color} rounded-xl mr-4 flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow`}>
+                <span className="text-white text-xl">{template.icon}</span>
               </div>
               <div>
-                <div className="font-medium text-gray-800">{template.name}</div>
-                <div className="text-xs text-gray-500">{template.size}</div>
+                <div className="font-semibold text-gray-900 mb-1">{template.name}</div>
+                <div className="text-sm text-gray-600">{template.size}</div>
               </div>
             </div>
           ))}
@@ -117,8 +117,8 @@ const DesignPanel = () => {
       </div>
 
       <div className="mb-4">
-        <h4 className="text-sm font-medium text-gray-600 mb-3">DIMENSIONS PERSONNALISÉES</h4>
-        <button className="w-full p-3 border-2 border-dashed border-gray-300 rounded-lg text-gray-600 hover:border-blue-400 hover:text-blue-600 transition-colors">
+        <h4 className="text-sm font-semibold text-gray-700 mb-4 uppercase tracking-wide">Dimensions personnalisées</h4>
+        <button className="w-full p-4 border-2 border-dashed border-gray-300 rounded-xl text-gray-600 hover:border-purple-400 hover:text-purple-600 hover:bg-purple-50 transition-all duration-200">
           + Créer un design personnalisé
         </button>
       </div>
@@ -823,26 +823,26 @@ export const TopToolbar = ({
 // Device Preview Tabs
 export const DevicePreview = ({ selectedDevice, setSelectedDevice }) => {
   const devices = [
-    { id: 'tablet', label: 'Tablet', icon: '📱' },
     { id: 'mobile', label: 'Mobile', icon: '📱' },
-    { id: 'desktop', label: 'Desktop', icon: '💻' }
+    { id: 'tablet', label: 'Tablette', icon: '📱' },
+    { id: 'desktop', label: 'Ordinateur', icon: '💻' }
   ];
 
   return (
     <div className="flex justify-center mb-4">
-      <div className="flex bg-gray-200 rounded-lg p-1">
+      <div className="flex bg-gray-100 rounded-xl p-1 shadow-sm border border-gray-200">
         {devices.map((device) => (
           <button
             key={device.id}
             onClick={() => setSelectedDevice(device.id)}
-            className={`flex items-center space-x-2 px-4 py-2 rounded-md transition-colors ${
+            className={`flex items-center space-x-2 px-6 py-3 rounded-lg transition-all duration-200 ${
               selectedDevice === device.id 
-                ? 'bg-white shadow-sm' 
-                : 'hover:bg-gray-300'
+                ? 'bg-white shadow-md text-purple-600 font-medium' 
+                : 'hover:bg-gray-200 text-gray-600'
             }`}
           >
             <span>{device.icon}</span>
-            <span className="text-sm">{device.label}</span>
+            <span className="text-sm font-medium">{device.label}</span>
           </button>
         ))}
       </div>
@@ -853,26 +853,27 @@ export const DevicePreview = ({ selectedDevice, setSelectedDevice }) => {
 // Spinning Wheel Component (simplified for Canva preview)
 const SpinningWheelPreview = () => {
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center relative">
       <div className="relative">
         {/* LED Lights Ring */}
-        <div className="absolute -inset-2 rounded-full">
+        <div className="absolute -inset-4 rounded-full">
           {[...Array(12)].map((_, i) => (
             <div
               key={i}
-              className="absolute w-2 h-2 bg-yellow-400 rounded-full"
+              className="absolute w-3 h-3 bg-gradient-to-r from-yellow-300 to-yellow-500 rounded-full shadow-lg animate-pulse"
               style={{
                 top: '50%',
                 left: '50%',
                 transformOrigin: '50% 50%',
-                transform: `translate(-50%, -50%) rotate(${i * 30}deg) translateY(-60px)`,
+                transform: `translate(-50%, -50%) rotate(${i * 30}deg) translateY(-70px)`,
+                animationDelay: `${i * 0.1}s`
               }}
             />
           ))}
         </div>
 
         {/* Main Wheel */}
-        <div className="relative w-32 h-32 rounded-full shadow-lg bg-gradient-to-br from-yellow-300 to-yellow-600 border-4 border-yellow-500">
+        <div className="relative w-40 h-40 rounded-full shadow-2xl bg-gradient-to-br from-yellow-400 via-yellow-500 to-yellow-600 border-4 border-yellow-600">
           {/* Wheel Segments */}
           <svg className="w-full h-full" viewBox="0 0 100 100">
             {[...Array(8)].map((_, index) => {
@@ -896,18 +897,21 @@ const SpinningWheelPreview = () => {
                 <path
                   key={index}
                   d={pathData}
-                  fill={index % 2 === 0 ? "#dc2626" : "#ffffff"}
-                  stroke="#fbbf24"
-                  strokeWidth="1"
+                  fill={index % 2 === 0 ? "#ef4444" : "#fef3c7"}
+                  stroke="#f59e0b"
+                  strokeWidth="0.5"
                 />
               );
             })}
           </svg>
 
           {/* Center Hub */}
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full border-2 border-yellow-500 flex items-center justify-center">
-            <div className="w-3 h-3 bg-gradient-to-br from-red-500 to-red-700 rounded-full"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-gradient-to-br from-yellow-300 to-yellow-500 rounded-full border-3 border-yellow-600 flex items-center justify-center shadow-lg">
+            <div className="w-4 h-4 bg-gradient-to-br from-red-500 to-red-700 rounded-full shadow-inner"></div>
           </div>
+
+          {/* Pointer */}
+          <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-b-8 border-l-transparent border-r-transparent border-b-red-600 shadow-lg"></div>
         </div>
       </div>
     </div>
@@ -922,130 +926,147 @@ export const CanvasArea = ({ selectedDevice, setSelectedDevice, designContent })
         return { 
           width: '375px', 
           height: '667px',
-          borderRadius: '25px',
-          border: '8px solid #1f2937',
-          padding: '20px'
+          borderRadius: '30px',
+          border: '6px solid #374151',
+          padding: '25px',
+          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
         };
       case 'tablet':
         return { 
           width: '768px', 
           height: '600px',
-          borderRadius: '15px',
-          border: '6px solid #374151',
-          padding: '15px'
+          borderRadius: '20px',
+          border: '4px solid #4b5563',
+          padding: '20px',
+          boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
         };
       case 'desktop':
         return { 
           width: '1200px', 
           height: '700px',
-          borderRadius: '8px',
-          border: '3px solid #fbbf24',
-          padding: '0'
+          borderRadius: '12px',
+          border: '2px solid #d1d5db',
+          padding: '0',
+          boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)'
         };
       default:
         return { 
           width: '768px', 
           height: '600px',
-          borderRadius: '15px',
-          border: '6px solid #374151',
-          padding: '15px'
+          borderRadius: '20px',
+          border: '4px solid #4b5563',
+          padding: '20px',
+          boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
         };
     }
   };
 
   return (
-    <div className="flex-1 p-8 bg-gray-50 overflow-auto">
+    <div className="flex-1 p-8 bg-gradient-to-br from-gray-50 to-gray-100 overflow-auto">
       {/* Device Preview Tabs */}
       <DevicePreview selectedDevice={selectedDevice} setSelectedDevice={setSelectedDevice} />
       
       {/* Canvas Container */}
-      <div className="flex justify-center items-center min-h-96">
+      <div className="flex justify-center items-center min-h-96 py-8">
         <div 
-          className="bg-gradient-to-b from-sky-300 via-sky-200 to-green-400 relative overflow-hidden shadow-xl"
+          className="bg-gradient-to-b from-sky-400 via-sky-300 to-emerald-400 relative overflow-hidden"
           style={getDeviceStyles()}
         >
           {/* Mobile Status Bar (for mobile view) */}
           {selectedDevice === 'mobile' && (
-            <div className="absolute top-2 left-4 right-4 flex justify-between items-center text-white text-sm">
+            <div className="absolute top-3 left-6 right-6 flex justify-between items-center text-white text-sm font-medium">
               <div className="flex items-center space-x-1">
-                <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-                <div className="w-16 h-1 bg-white/30 rounded-full">
-                  <div className="w-8 h-1 bg-white rounded-full"></div>
+                <div className="flex space-x-1">
+                  <div className="w-1 h-1 bg-white rounded-full"></div>
+                  <div className="w-1 h-1 bg-white rounded-full"></div>
+                  <div className="w-1 h-1 bg-white/50 rounded-full"></div>
                 </div>
+                <span className="text-xs ml-2">Bouygues</span>
               </div>
               <div className="flex items-center space-x-2">
-                <span>💬</span>
-                <span>❤️</span>
+                <span className="text-xs">14:32</span>
+                <div className="flex items-center space-x-1">
+                  <div className="w-6 h-3 border border-white rounded-sm">
+                    <div className="w-4 h-1 bg-white rounded-full mt-0.5 ml-0.5"></div>
+                  </div>
+                </div>
               </div>
             </div>
           )}
 
           {/* Desktop Browser Bar (for desktop view) */}
           {selectedDevice === 'desktop' && (
-            <div className="absolute top-0 left-0 right-0 h-8 bg-yellow-400 flex items-center px-4">
+            <div className="absolute top-0 left-0 right-0 h-10 bg-gray-200 flex items-center px-4 border-b border-gray-300">
               <div className="flex space-x-2">
                 <div className="w-3 h-3 bg-red-500 rounded-full"></div>
                 <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
                 <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+              </div>
+              <div className="flex-1 mx-4">
+                <div className="bg-white rounded-md px-3 py-1 text-sm text-gray-600 border">
+                  https://mon-jeu-concours.fr
+                </div>
               </div>
             </div>
           )}
 
           {/* Clouds */}
           <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-8 left-8 w-16 h-10 bg-white rounded-full opacity-90 shadow-lg"></div>
-            <div className="absolute top-10 left-12 w-10 h-6 bg-white rounded-full opacity-80"></div>
+            <div className="absolute top-12 left-10 w-20 h-12 bg-white/90 rounded-full shadow-lg"></div>
+            <div className="absolute top-14 left-14 w-12 h-8 bg-white/80 rounded-full"></div>
             
-            <div className="absolute top-12 right-12 w-20 h-12 bg-white rounded-full opacity-90 shadow-lg"></div>
-            <div className="absolute top-14 right-16 w-12 h-8 bg-white rounded-full opacity-80"></div>
+            <div className="absolute top-16 right-16 w-24 h-14 bg-white/90 rounded-full shadow-lg"></div>
+            <div className="absolute top-18 right-20 w-14 h-10 bg-white/80 rounded-full"></div>
+            
+            <div className="absolute top-20 left-1/3 w-16 h-10 bg-white/70 rounded-full"></div>
           </div>
 
           {/* Title */}
-          <div className="absolute top-1/4 left-1/2 transform -translate-x-1/2 text-center">
+          <div className="absolute top-1/4 left-1/2 transform -translate-x-1/2 text-center z-10">
             <h1 className={`text-white drop-shadow-lg mb-2 font-bold ${
-              selectedDevice === 'mobile' ? 'text-2xl' : 
-              selectedDevice === 'tablet' ? 'text-4xl' : 'text-6xl'
+              selectedDevice === 'mobile' ? 'text-3xl' : 
+              selectedDevice === 'tablet' ? 'text-5xl' : 'text-7xl'
             }`}>
               Jouez pour gagner
             </h1>
-            <div className="w-16 h-1 bg-yellow-400 mx-auto rounded-full"></div>
+            <div className="w-20 h-1 bg-gradient-to-r from-yellow-400 to-yellow-500 mx-auto rounded-full shadow-lg"></div>
           </div>
 
           {/* Spinning Wheel */}
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
             <SpinningWheelPreview />
           </div>
 
           {/* Rolling Hills */}
           <div className="absolute bottom-0 left-0 w-full">
-            <svg viewBox="0 0 400 100" className="w-full h-16">
+            <svg viewBox="0 0 400 100" className="w-full h-20">
               <path
                 d="M0,100 Q100,60 200,65 T400,60 L400,100 Z"
-                fill="#84cc16"
+                fill="#22c55e"
               />
               <path
                 d="M0,100 Q75,75 150,80 T300,75 Q350,70 400,80 L400,100 Z"
-                fill="#65a30d"
+                fill="#16a34a"
               />
             </svg>
           </div>
 
           {/* Mobile Bottom Indicator */}
           {selectedDevice === 'mobile' && (
-            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-black/20 rounded-full"></div>
+            <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-36 h-1 bg-white/30 rounded-full"></div>
           )}
         </div>
       </div>
 
       {/* Canvas Navigation */}
-      <div className="flex justify-center mt-4">
+      <div className="flex justify-center mt-6">
         <div className="flex items-center space-x-4">
-          <button className="p-2 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow">
-            ←
+          <button className="p-3 bg-white rounded-full shadow-md hover:shadow-lg transition-all duration-200 hover:scale-105">
+            <span className="text-gray-600">←</span>
           </button>
-          <span className="text-sm text-gray-600">1 / 1</span>
-          <button className="p-2 bg-white rounded-full shadow-md hover:shadow-lg transition-shadow">
-            →
+          <span className="text-sm text-gray-600 font-medium px-4 py-2 bg-white rounded-full shadow-sm">Page 1 sur 1</span>
+          <button className="p-3 bg-white rounded-full shadow-md hover:shadow-lg transition-all duration-200 hover:scale-105">
+            <span className="text-gray-600">→</span>
           </button>
         </div>
       </div>
@@ -1056,28 +1077,34 @@ export const CanvasArea = ({ selectedDevice, setSelectedDevice, designContent })
 // Bottom Controls Component
 export const BottomControls = () => {
   return (
-    <div className="bg-white border-t border-gray-200 px-6 py-3 flex items-center justify-between">
+    <div className="bg-white border-t border-gray-300 px-6 py-4 flex items-center justify-between shadow-lg">
       {/* Left Side */}
-      <button className="flex items-center space-x-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
-        <span>✕</span>
-        <span className="text-sm">Fermer</span>
+      <div className="flex items-center space-x-4">
+        <button className="flex items-center space-x-2 px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors">
+          <span>←</span>
+          <span className="text-sm font-medium">Retour</span>
+        </button>
+        <div className="text-sm text-gray-500">
+          Dernière modification: il y a 2 minutes
+        </div>
+      </div>
       </button>
 
       {/* Right Side */}
       <div className="flex items-center space-x-3">
-        <button className="flex items-center space-x-2 px-4 py-2 bg-blue-100 hover:bg-blue-200 rounded-lg transition-colors">
+        <button className="flex items-center space-x-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-all duration-200">
           <span>👁</span>
-          <span className="text-sm text-blue-700">Aperçu</span>
+          <span className="text-sm font-medium text-gray-700">Aperçu</span>
         </button>
         
-        <button className="flex items-center space-x-2 px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors">
-          <span>✓</span>
-          <span className="text-sm">Sauvegarder</span>
+        <button className="flex items-center space-x-2 px-4 py-2 border border-purple-300 text-purple-600 hover:bg-purple-50 rounded-lg transition-all duration-200">
+          <span>⬇</span>
+          <span className="text-sm font-medium">Télécharger</span>
         </button>
         
-        <button className="flex items-center space-x-2 px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-lg transition-colors">
-          <span>→</span>
-          <span className="text-sm">Sauvegarder et quitter</span>
+        <button className="flex items-center space-x-2 px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-all duration-200 shadow-md hover:shadow-lg">
+          <span>↗</span>
+          <span className="text-sm font-medium">Partager</span>
         </button>
       </div>
     </div>
